@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        canvas{
+            outline: 1px solid white;
+        }
+    
+        body{
+            background-color: indigo;
+            text-align: center;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    
+    <canvas></canvas>
+    <script src="js/game.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/tile.js"></script>
+    <script src="js/enemies.js"></script>
+    <script src="js/util.js"></script>
+    <script>
+        // ctx.fillRect(0,0,20,20,20);
+    </script>
+    <script>
+
+        canvas = document.querySelector("canvas");
+        ctx = canvas.getContext("2d");
+    
+        ctx.fillRect(0,0,20,20,20);
+
+        tileSize = 45;
+        numTiles = 25;
+        // uiWidth = 0;
+
+        spritesheet = new Image();
+        spritesheet.src = 'images/small.png';
+        spritesheet.onload = showTitle;
+                             
+         gameState = "loading";  
+
+        startingHp = 9; 
+        numLevels = 6; 
+        numEnemies = 10;
+
+        shakeAmount = 0;       
+        shakeX = 0;                 
+        shakeY = 0;   
+    
+        document.querySelector("html").onkeypress = function(e){
+            if(gameState == "title"){                              
+                startGame();                
+        }   else if(gameState == "dead"){                             
+                showDeadTitle();                                        
+        }   else if (gameState == 'win') {
+                showWinTitle();
+
+        }   else if(gameState == "running"){
+                if(e.key=="w") player.tryMove(0, -1);
+                if(e.key=="s") player.tryMove(0, 1);
+                if(e.key=="a") player.tryMove(-1, 0);
+                if(e.key=="d") player.tryMove(1, 0);
+                if(e.charCode=="32") player.tryHit(1, 0); // space
+        }
+        };
+
+        setInterval(draw, 15);
+
+        setupCanvas();
+
+        // generateLevel();    
+
+        // player = new Player(randomPassableTile());
+
+    
+    </script>
+</body>
+</html>
